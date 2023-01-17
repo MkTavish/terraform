@@ -2,7 +2,6 @@ name: Lambda Deploy
 
 on:
   pull_request:
-    types: [closed]
     branches:
       - dev
       - main
