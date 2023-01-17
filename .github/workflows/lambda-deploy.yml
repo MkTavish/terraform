@@ -24,7 +24,8 @@ jobs:
       run: terraform init
 
     - name: Install Atlantis
-      run: curl -sL https://raw.githubusercontent.com/runatlantis/atlantis/master/scripts/install.sh | sh
+      #run: curl -sL https://raw.githubusercontent.com/runatlantis/atlantis/master/scripts/install.sh | sh
+      run: wget -q -O - https://raw.githubusercontent.com/runatlantis/atlantis/master/scripts/install.sh | sh
 
     # - name: Plan and Apply Terraform changes
     #   run: terraform apply -auto-approve
