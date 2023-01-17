@@ -24,12 +24,15 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
 
-    - name: Plan and Apply Terraform changes
-      run: terraform apply -auto-approve
-      env:
-        TF_VAR_function_name: my-lambda-function
-        TF_VAR_handler_name: main
-        TF_VAR_runtime: python3.8
+    - name: Install Atlantis
+      run: curl -sL https://raw.githubusercontent.com/runatlantis/atlantis/master/scripts/install.sh | sh
+
+    # - name: Plan and Apply Terraform changes
+    #   run: terraform apply -auto-approve
+    #   env:
+    #     TF_VAR_function_name: my-lambda-function
+    #     TF_VAR_handler_name: main
+    #     TF_VAR_runtime: python3.8
         
-    - name: Run Atlantis
-      run: atlantis apply
+    # - name: Run Atlantis
+    #   run: atlantis apply
