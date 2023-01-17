@@ -1,0 +1,35 @@
+name: Lambda Deploy
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - dev
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Plan and Apply Terraform changes
+      run: terraform apply -auto-approve
+      env:
+        TF_VAR_function_name: my-lambda-function
+        TF_VAR_handler_name: main
+        TF_VAR_runtime: python3.8
+        
+    - name: Run Atlantis
+      run: atlantis apply
