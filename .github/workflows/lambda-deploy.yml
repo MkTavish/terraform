@@ -34,5 +34,5 @@ jobs:
         TF_VAR_handler_name: main
         TF_VAR_runtime: python3.8
         
-    - name: Run Atlantis
-      run: atlantis apply
+    # - name: Run Atlantis
+    #   run: atlantis apply
