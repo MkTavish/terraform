@@ -31,14 +31,14 @@ resource "aws_iam_role" "iam_for_lambda" {
 }
 
 resource "aws_lambda_function" "lambda" {
-  function_name = "hello_lambda"
+  #function_name = "hello_lambda"
 
   filename         = "${data.archive_file.zip.output_path}"
   source_code_hash = "${data.archive_file.zip.output_base64sha256}"
 
   role    = "${aws_iam_role.iam_for_lambda.arn}"
   handler = "hello_lambda.lambda_handler"
-  runtime = "python3.9"
+  #runtime = "python3.9"
 
   environment {
     variables = {
@@ -47,19 +47,19 @@ resource "aws_lambda_function" "lambda" {
   }
 }
 
-resource "aws_lambda_function" "lambda2" {
-  function_name = "hello_lambda2"
+# resource "aws_lambda_function" "lambda2" {
+#   function_name = "hello_lambda2"
 
-  filename         = "${data.archive_file.zip.output_path}"
-  source_code_hash = "${data.archive_file.zip.output_base64sha256}"
+#   filename         = "${data.archive_file.zip.output_path}"
+#   source_code_hash = "${data.archive_file.zip.output_base64sha256}"
 
-  role    = "${aws_iam_role.iam_for_lambda.arn}"
-  handler = "hello_lambda.lambda_handler"
-  runtime = "python3.9"
+#   role    = "${aws_iam_role.iam_for_lambda.arn}"
+#   handler = "hello_lambda.lambda_handler"
+#   runtime = "python3.9"
 
-  environment {
-    variables = {
-      greeting = "Hello"
-    }
-  }
-}
+#   environment {
+#     variables = {
+#       greeting = "Hello"
+#     }
+#   }
+# }
