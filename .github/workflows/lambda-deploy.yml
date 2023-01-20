@@ -20,19 +20,18 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
+    - uses: dorny/paths-filters@v2
+      id: filter
+      with:
+        filters: .github/filters.yml
+
     - name: Initialize Terraform
       run: terraform init
 
-    - name: Install Atlantis
-      #run: curl -sL https://raw.githubusercontent.com/runatlantis/atlantis/master/scripts/install.sh | sh
-      run: wget -q -O - https://raw.githubusercontent.com/runatlantis/atlantis/master/scripts/install.sh | sh
+    - name: Plan Terraform
+      run: terraform plan
 
-    - name: Plan and Apply Terraform changes
+    - name: Apply Terraform Changes
+      if: github.event.pull_request.state == 'closed'
       run: terraform apply -auto-approve
-      env:
-        TF_VAR_function_name: my-lambda-function
-        TF_VAR_handler_name: main
-        TF_VAR_runtime: python3.8
-        
-    # - name: Run Atlantis
-    #   run: atlantis apply
+    
