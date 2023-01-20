@@ -20,11 +20,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - uses: dorny/paths-filters@v2
-      id: filter
-      with:
-        filters: .github/filters.yml
-
     - name: Initialize Terraform
       run: terraform init
 
