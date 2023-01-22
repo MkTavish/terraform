@@ -27,6 +27,6 @@ jobs:
       run: terraform plan
 
     - name: Apply Terraform Changes
-      if: github.event.pull_request.state == 'closed'
+      #if: github.event.pull_request.state == 'closed'
       run: terraform apply -auto-approve
     
