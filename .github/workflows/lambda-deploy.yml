@@ -2,7 +2,6 @@ name: Lambda Deploy
 
 on:
   pull_request:
-    types: [closed]
     branches:
       - dev
       - main
@@ -24,12 +23,10 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
 
-    - name: Plan and Apply Terraform changes
+    - name: Plan Terraform
+      run: terraform plan
+
+    - name: Apply Terraform Changes
+      if: github.event.pull_request.state == 'closed'
       run: terraform apply -auto-approve
-      env:
-        TF_VAR_function_name: my-lambda-function
-        TF_VAR_handler_name: main
-        TF_VAR_runtime: python3.8
-        
-    - name: Run Atlantis
-      run: atlantis apply
+    
