@@ -2,7 +2,7 @@ name: Deploy Lambda function
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, closed]
   push:
     branches:
       - dev
@@ -30,7 +30,8 @@ jobs:
       run: terraform plan
 
   apply:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    #if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    if: github.event.pull_request.state == 'closed'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
