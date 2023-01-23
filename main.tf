@@ -102,7 +102,7 @@ resource "null_resource" "zip_lambda" {
 }
 
 resource "aws_lambda_function" "lambda_function" {
-  depends_on  = [null_resource.zip_lambda]
+  #depends_on  = [null_resource.zip_lambda]
   for_each = fileset(path.module, "lambda_functions/*.zip")
   filename = "${each.key}"
   function_name = "${replace(replace(each.key, "lambda_functions/", ""), ".zip", "")}"
